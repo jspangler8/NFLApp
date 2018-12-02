@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -38,7 +40,12 @@ public final class MainActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         setContentView(R.layout.activity_main);
-        final android.widget.Button click = findViewById(R.id.button);
+
+        Button playerSearch = findViewById(R.id.playerSearch);
+        TextView resultTextView = findViewById(R.id.Result);
+        resultTextView.setText("Hello");
+
+        final android.widget.Button click = findViewById(R.id.playerSearch);
         click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -94,7 +101,7 @@ public final class MainActivity extends AppCompatActivity {
             Log.d(TAG, response.toString(2));
             // Example of how to pull a field off the returned JSON object
             // Log.i(TAG, response.get("hostname").toString());
-            final android.widget.TextView location = findViewById(R.id.textView);
+            final android.widget.TextView location = findViewById(R.id.playerName);
             String crime = response.get("category").toString();
             location.setText(crime);
         } catch (JSONException ignored) { }
