@@ -11,18 +11,20 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Main class for our UI design lab.
+ * Main class for our app
  */
 public final class MainActivity extends AppCompatActivity {
     /** Default logging tag for messages from the main activity. */
-    private static final String TAG = "Lab11:Main";
+    private static final String TAG = "NFLApp:Main";
 
     /** Request queue for our API requests. */
     private static RequestQueue requestQueue;
@@ -49,7 +51,9 @@ public final class MainActivity extends AppCompatActivity {
         click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                startAPICall("192.17.96.8");
+                String name = input.getText().toString();
+                System.out.println(name);
+                startAPICall(name);
             }
         });
     }
@@ -63,15 +67,15 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Make a call to the IP geolocation API.
+     * Make a call to the NFL arrest record API.
      *
-     * @param Name IP address to look up
+     * @param Name player to look up
      */
     void startAPICall(final String Name) {
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
-                    "NflArrest.com/api/v1/player/topCrimes/" + Name,
+                    "http://nflarrest.com/api/v1/player/topCrimes/" + Name + "?limit=1",
                     null,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -92,18 +96,18 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Handle the response from our IP geolocation API.
+     * Handle the response from the NFL arrest API.
      *
-     * @param response response from our IP geolocation API.
+     * @param response response from our NFL arrest API.
      */
     void apiCallDone(final JSONObject response) {
         try {
             Log.d(TAG, response.toString(2));
             // Example of how to pull a field off the returned JSON object
             // Log.i(TAG, response.get("hostname").toString());
-            final android.widget.TextView location = findViewById(R.id.playerName);
+            final android.widget.TextView result = findViewById(R.id.Result);
             String crime = response.get("category").toString();
-            location.setText(crime);
+            result.setText(crime);
         } catch (JSONException ignored) { }
     }
 }
