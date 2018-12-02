@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -12,15 +13,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Main class for our UI design lab.
+ * Main class for our app
  */
 public final class MainActivity extends AppCompatActivity {
     /** Default logging tag for messages from the main activity. */
-    private static final String TAG = "Lab11:Main";
+    private static final String TAG = "NFLApp:Main";
 
     /** Request queue for our API requests. */
     private static RequestQueue requestQueue;
@@ -38,11 +40,14 @@ public final class MainActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         setContentView(R.layout.activity_main);
-        final android.widget.Button click = findViewById(R.id.button);
+        final android.widget.Button click = findViewById(R.id.playerSearch);
+        final android.widget.TextView input = findViewById(R.id.playerName);
         click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                startAPICall("192.17.96.8");
+                String name = input.getText().toString();
+                System.out.println(name);
+                startAPICall(name);
             }
         });
     }
@@ -64,7 +69,7 @@ public final class MainActivity extends AppCompatActivity {
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
-                    "NflArrest.com/api/v1/player/topCrimes/" + Name,
+                    "http://nflarrest.com/api/v1/player/topCrimes/" + Name + "?limit=1",
                     null,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -94,7 +99,7 @@ public final class MainActivity extends AppCompatActivity {
             Log.d(TAG, response.toString(2));
             // Example of how to pull a field off the returned JSON object
             // Log.i(TAG, response.get("hostname").toString());
-            final android.widget.TextView location = findViewById(R.id.textView);
+            final android.widget.TextView location = findViewById(R.id.Result);
             String crime = response.get("category").toString();
             location.setText(crime);
         } catch (JSONException ignored) { }
