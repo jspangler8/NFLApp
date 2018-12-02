@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -41,8 +42,12 @@ public final class MainActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         setContentView(R.layout.activity_main);
+
+        Button playerSearch = findViewById(R.id.playerSearch);
+        TextView resultTextView = findViewById(R.id.Result);
+        resultTextView.setText("Hello");
+
         final android.widget.Button click = findViewById(R.id.playerSearch);
-        final android.widget.TextView input = findViewById(R.id.playerName);
         click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
