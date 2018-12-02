@@ -58,13 +58,13 @@ public final class MainActivity extends AppCompatActivity {
     /**
      * Make a call to the IP geolocation API.
      *
-     * @param ipAddress IP address to look up
+     * @param Name IP address to look up
      */
-    void startAPICall(final String ipAddress) {
+    void startAPICall(final String Name) {
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
-                    "https://ipinfo.io/" + ipAddress + "/json",
+                    "NflArrest.com/api/v1/player/topCrimes/" + Name,
                     null,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -93,10 +93,10 @@ public final class MainActivity extends AppCompatActivity {
         try {
             Log.d(TAG, response.toString(2));
             // Example of how to pull a field off the returned JSON object
-            Log.i(TAG, response.get("hostname").toString());
+            // Log.i(TAG, response.get("hostname").toString());
             final android.widget.TextView location = findViewById(R.id.textView);
-            String town = response.get("city").toString();
-            location.setText(town);
+            String crime = response.get("category").toString();
+            location.setText(crime);
         } catch (JSONException ignored) { }
     }
 }
