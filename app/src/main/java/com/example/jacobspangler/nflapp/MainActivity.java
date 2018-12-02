@@ -10,6 +10,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -61,9 +62,9 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Make a call to the IP geolocation API.
+     * Make a call to the NFL arrest record API.
      *
-     * @param Name IP address to look up
+     * @param Name player to look up
      */
     void startAPICall(final String Name) {
         try {
@@ -90,18 +91,18 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Handle the response from our IP geolocation API.
+     * Handle the response from the NFL arrest API.
      *
-     * @param response response from our IP geolocation API.
+     * @param response response from our NFL arrest API.
      */
     void apiCallDone(final JSONObject response) {
         try {
             Log.d(TAG, response.toString(2));
             // Example of how to pull a field off the returned JSON object
             // Log.i(TAG, response.get("hostname").toString());
-            final android.widget.TextView location = findViewById(R.id.Result);
+            final android.widget.TextView result = findViewById(R.id.Result);
             String crime = response.get("category").toString();
-            location.setText(crime);
+            result.setText(crime);
         } catch (JSONException ignored) { }
     }
 }
