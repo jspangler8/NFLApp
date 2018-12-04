@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/page"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/ic_launcher_background"
+    android:layout_height="match_parent"
+    android:background="@drawable/fieldbackground"
     tools:context=".MainActivity">
 
     <EditText
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="69dp"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="143dp"
         android:layout_marginLeft="143dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="184dp"
         android:layout_marginEnd="143dp"
         android:layout_marginRight="143dp"
         android:text="Search"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="168dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Result"

@@ -43,11 +43,8 @@ public final class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        Button playerSearch = findViewById(R.id.playerSearch);
-        TextView resultTextView = findViewById(R.id.Result);
-        resultTextView.setText("Hello");
-
         final android.widget.Button click = findViewById(R.id.playerSearch);
+        final android.widget.TextView input = findViewById(R.id.playerName);
         click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
