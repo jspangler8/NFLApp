@@ -4,20 +4,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Main class for our app
@@ -72,7 +68,7 @@ public final class MainActivity extends AppCompatActivity {
         try {
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                     Request.Method.GET,
-                    "http://nflarrest.com/api/v1/player/topCrimes/" + Name + "?limit=1",
+                    "http://nflarrest.com/api/v1/player/topCrimes/" + Name,
                     null,
                     new Response.Listener<JSONArray>() {
                         @Override
@@ -101,8 +97,28 @@ public final class MainActivity extends AppCompatActivity {
         try {
             Log.d(TAG, response.toString(2));
             final android.widget.TextView result = findViewById(R.id.Result);
-            String crime = response.getJSONObject(0).get("category").toString();
-            result.setText(crime);
+            final android.widget.TextView result2 = findViewById(R.id.Result2);
+            final android.widget.TextView result3 = findViewById(R.id.Result3);
+            if (response.length() == 0) {
+                result.setText("Invalid Name");
+                result2.setText("");
+                result3.setText("");
+            }
+            if (response.length() > 0) {
+                String crime = response.getJSONObject(0).get("category").toString();
+                String count = response.getJSONObject(0).get("arrest_count").toString();
+                result.setText(crime + " : " + count);
+            }
+            if (response.length() > 1) {
+                String crime = response.getJSONObject(1).get("category").toString();
+                String count = response.getJSONObject(1).get("arrest_count").toString();
+                result2.setText(crime + " : " + count);
+            }
+            if (response.length() > 2) {
+                String crime = response.getJSONObject(2).get("category").toString();
+                String count = response.getJSONObject(2).get("arrest_count").toString();
+                result3.setText(crime + " : " + count);
+            }
         } catch (JSONException ignored) { }
     }
 }
