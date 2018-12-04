@@ -70,13 +70,13 @@ public final class MainActivity extends AppCompatActivity {
      */
     void startAPICall(final String Name) {
         try {
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                     Request.Method.GET,
                     "http://nflarrest.com/api/v1/player/topCrimes/" + Name + "?limit=1",
                     null,
-                    new Response.Listener<JSONObject>() {
+                    new Response.Listener<JSONArray>() {
                         @Override
-                        public void onResponse(final JSONObject response) {
+                        public void onResponse(final JSONArray response) {
                             apiCallDone(response);
                         }
                     }, new Response.ErrorListener() {
@@ -85,8 +85,8 @@ public final class MainActivity extends AppCompatActivity {
                     Log.e(TAG, error.toString());
                 }
             });
-            jsonObjectRequest.setShouldCache(false);
-            requestQueue.add(jsonObjectRequest);
+            jsonArrayRequest.setShouldCache(false);
+            requestQueue.add(jsonArrayRequest);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -97,13 +97,11 @@ public final class MainActivity extends AppCompatActivity {
      *
      * @param response response from our NFL arrest API.
      */
-    void apiCallDone(final JSONObject response) {
+    void apiCallDone(final JSONArray response) {
         try {
             Log.d(TAG, response.toString(2));
-            // Example of how to pull a field off the returned JSON object
-            // Log.i(TAG, response.get("hostname").toString());
             final android.widget.TextView result = findViewById(R.id.Result);
-            String crime = response.get("category").toString();
+            String crime = response.getJSONObject(0).get("category").toString();
             result.setText(crime);
         } catch (JSONException ignored) { }
     }
